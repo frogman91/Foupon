@@ -1,4 +1,4 @@
-(function() {
+
 
 
 // Initialize Firebase
@@ -13,21 +13,47 @@
   firebase.initializeApp(config);
 
   // Get ELements
-  const txt Email = document.getElementById("txtEmail");
-  const txt Password = document.getElementById("txtPassword");
-  const btnLogin = document.getElementById("btnLogin");
-  const btnSignUp = document.getElementById("btnSignUp");
-  const btnLogout = document.getElementById("btnLogout");
+  var txtEmail = document.getElementById("txtEmail");
+  var txtPassword = document.getElementById("txtPassword");
+  var btnLogin = document.getElementById("btnLogin");
+  var btnSignUp = document.getElementById("btnSignUp");
+  var btnLogout = document.getElementById("btnLogout");
 
   // add login event
   btnLogin.addEventListener("click", e => {
-    // get email an pass
-    const email = txtEmail.value;
-    const pass = txtPassword.value;
-    const auth = firebase.auth();
+    // get email and pass
+    var email = txtEmail.value;
+    var pass = txtPassword.value;
+    var auth = firebase.auth();
     //  sign in
-    const promise = auth.signInWithEmailAndPassword(email, pass);
+    var promise = auth.signInWithEmailAndPassword(email, pass);
     promise.catch(e => console.log(e.message));
+  });
+
+  // add signup event
+  btnSignUp.addEventListener("click", e => {
+    // get email an pass
+    var email = txtEmail.value;
+    var pass = txtPassword.value;
+    var auth = firebase.auth();
+    //  sign in
+    var promise = auth.createUserWithEmailAndPassword(email, pass);
+
+    promise.catch(e => console.log(e.message));
+  });
+
+  btnLogout.addEventListener("click", e => {
+    firebase.auth().signOut()
   })
 
+  // add a realtime listener
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser) {
+      console.log(firebaseUser);
+      btnLogout.classList.remove("hide");
 
+    } else {
+      console.log("not logged in");
+      btnLogout.classList.add("hide");
+    }
+  });
