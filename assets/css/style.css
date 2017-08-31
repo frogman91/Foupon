@@ -1,0 +1,15 @@
+/*Begin CSS*/
+
+.jumbotron {
+	color: white;
+	background-color: black;
+}
+
+
+.panel-title {
+	color: white;
+}
+
+.panel-default>.panel-heading {
+	background-color: blue;
+}
