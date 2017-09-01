@@ -8,17 +8,44 @@ body {
     background: url(../images/restaurant.jpg) no-repeat center center fixed;
     background-size: cover;
 }
+
 .container-fluid {
-	background-color:white;
+	background-color:#fff;
+}
+
+.container {
+    height:100%;
+}
+
+#searchbar {
+    margin-top:150px;
 }
 
 .navbar-brand {
 	background: url("../images/logo-name.png")center / contain no-repeat;
-	margin-left:10px;
 	width:200px;
   	transform: translateX(-50%);
  	left: 53%;
   	position: absolute;
+}
+
+#restResult, #groupResult{
+    background-color:#fff;
+    font-size:18px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top:50px;
+    padding:10px;
+    text-align: center;
+    vertical-align: middle;
+}
+#restResult {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#groupResult {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 body {
@@ -27,10 +54,30 @@ body {
     background-color: #eee;
 }
 
+.btn-default {
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height:46px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn span {
+    font-size:18px;
+    color:darkgray;
+}
+
+.navbar-right {
+    font-size: 18px;
+}
+
 #main-content {
     background-color: white;
     border-radius: 6px;
     padding-bottom: 15px;
+    margin-top: 100px;
 }
 
 .sign-in {
