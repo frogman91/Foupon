@@ -1,15 +1,27 @@
-// $(document).ready(function() {
-//     addStartingButtons();
-// });
-// $("button").click(function() {
+$("#submitButton").on("click", function(e) {
+        e.preventDefault();
 
-//         var fired_button = $(this).val().trim();
-//         event.preventDefault();
-//         let queryURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJSx6SrQ9T2YARed8V_f0hOg0&type=restaurant" + "location" + "&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew"
-//         $.ajax({ url: queryURL, method: 'GET' })
-//             .done(function(response) {
-                
-//                     $('#gifArea').prepend("<img  src='" + response.data[i].images.fixed_height_still.url + "' >");
-//                     $('#gifArea').prepend("<p>Rating: " + response.data[i].rating + "</p>");
-//                     console.log(response);
+        //value from search-input
+        var searchValue = $("#search-input").val().trim();
 
+        //your API key
+        var newAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+
+        //proxy url for the class
+        var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
+
+        //the url for google places
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+'&key=' + newAPI;
+
+        $.ajax({
+            url: apiURL,
+            method: 'POST',
+            data: {
+                'url': queryURL
+            }
+        }).done(function(response) {
+            var res = JSON.stringify(response);
+            $("#stuff").text(res);
+            console.log(response);
+        });
+    });
