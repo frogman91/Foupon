@@ -21,13 +21,14 @@ $("#submitButton").on("click", function(e) {
             }
         }).done(function(response) {
             var res = JSON.stringify(response);
-            console.log('AJAX RESPONSE =',response.data.results.length);
+            console.log('AJAX RESPONSE = ', response)
             for (var i = 0; i < response.data.results.length; i++) {
+              //Log Array Length
+              console.log('ARRAY LENGTH = ',response.data.results.length);
               //Build Image URL from search results
-                    var newImage = $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[i].photo_reference +  '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'});
+                    var newImage = $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference +  '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'});
                     $("#restaurantImg").text(response.data.results[i]);
                     //Prepend Result Restaurant Rating
-                    console.log('RESTAURANT RATING: ',response.data.results[i].rating);
                     $('#restaurantImg').prepend("<p>Rating: " + response.data.results[i].rating + "</p>");
                     //Prepend 1st Image
                     $('#restaurantImg').prepend(newImage);
