@@ -1,3 +1,5 @@
+// On Search Button Click
+
 $("#submitButton").on("click", function(e) {
         e.preventDefault();
 
@@ -10,8 +12,11 @@ $("#submitButton").on("click", function(e) {
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
 
+        //Get current City value
+        var place = $("#city-input").val().trim();
+
         //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+'&key=' + newAPI;
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+'in+' + place + '&key=' + newAPI;
 
         $.ajax({
             url: apiURL,
@@ -24,7 +29,7 @@ $("#submitButton").on("click", function(e) {
             console.log('AJAX RESPONSE = ', response)
             for (var i = 0; i < response.data.results.length; i++) {
               //Log Array Length
-              console.log('ARRAY LENGTH = ',response.data.results.length);
+              console.log('ARRAY LENGTH = ', response.data.results.length);
               //Build Image URL from search results
                     var newImage = $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference +  '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'});
                     $("#restaurantImg").text(response.data.results[i]);

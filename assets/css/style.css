@@ -69,6 +69,12 @@ body {
     color:darkgray;
 }
 
+/*Added CSS*/
+.input-group-btn {
+  width: 120px;
+}
+
+
 .navbar-right {
     font-size: 18px;
 }
