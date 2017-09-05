@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Request</title>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+ 
+
+</head>
+<body>
+	<script type="text/javascript">
+
+	var sqootAPI = 'GD6dkmwuVjt_Ia8tQSC8';
+	var callBack = 'taco';
+
+						//http://api.sqoot.com/v2/deals?api_key=demo&callback=pickles
+		var queryURL = 'http://api.sqoot.com/v2/deals?api_key=' + sqootAPI + '&query=' + callBack; 
+			console.log('queryURL ===', queryURL)
+		    $.ajax({
+		        'url' : queryURL,
+		        method: "GET",
+		        header: {},
+		        parameters: 
+		        {
+		        	location: ""
+		        }
+		        // 'data' : parameterMap,
+		        // 'dataType' : 'jsonp',
+		        // 'async' : 'false',
+		        // 'cache': true,
+		    })
+		    .done(function(response) {
+		    console.log(response);
+		    })
+
+	
+	</script>
+</body>
+</html>

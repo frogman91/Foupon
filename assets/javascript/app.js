@@ -5,7 +5,7 @@ $("#submitButton").on("click", function(e) {
         //value from search-input
         var searchValue = $("#search-input").val().trim();
         //your API key
-        var newAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+        var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
         //Get current City value
@@ -33,7 +33,7 @@ $("#submitButton").on("click", function(e) {
           //Heade Func
           var newHeader = function() { return  $('<h3>').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag' })};
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&height=400&photoreference=' + response.data.results[i].photos[0].photo_reference + '&key=' + newAPI })};
           //Create Address P Func
           var newAddress = function() { return $('<p>').text(responseArray[i].formatted_address)};
           //Create Rating P Func
@@ -71,22 +71,10 @@ $("#submitButton").on("click", function(e) {
 
 
 
-// let startingButton = function() {
-//     for (var i = 0; i < startingButton.length; i++) {
-//         $("#defaultSearchButtons").append("<button class='btn btn-info' id=" + startingButtons[i] + " value=" + startingButtons[i] + ">" + startingButtons[i] + "</button>");
-//     }
-//     $("button").click(function() {
-//         var fired_button = $(this).val().trim();
-//         event.preventDefault();
-//         let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + fired_button + "&api_key=95bfdd6cda3f400aa1f2c12d2ba93f14&limit=10";
-//         $.ajax({ url: queryURL, method: 'GET' })
-//             .done(function(response) {
-//                 for (var i = 0; i < response.data.length; i++) {
-//                     $('#gifArea').prepend("<img  src='" + response.data[i].images.fixed_height_still.url + "' >");
-//                     $('#gifArea').prepend("<p>Rating: " + response.data[i].rating + "</p>");
-//                     console.log(response);
-//                 }
-//             })
 
-//     });
-// }
+
+
+
+
+
+
