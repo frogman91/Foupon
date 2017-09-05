@@ -37,7 +37,7 @@ $("#submitButton").on("click", function(e) {
           //Create Address P Func
           var newAddress = function() { return $('<p>').text(responseArray[i].formatted_address)};
           //Create Rating P Func
-          var newRating = function() { return $('<p>').text(responseArray[i].rating)};
+          var newRating = function() { return $('<p>').text('Rating ' + responseArray[i].rating)};
 
           //////// Append to DIV
           //Append Name
