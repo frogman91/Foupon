@@ -10,15 +10,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- style link -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-
-
 </head>
 
 <body>
+    <body>
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -45,33 +42,18 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="container">
+        <div class="container" id="profile-result">
             <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-1"></div>
-                <div id="main-content" class="col-md-4 col-sm-6 col-xs-10">
-                    <form class="form-signin">
-                        <h2 class="form-signin-heading">Please sign in</h2>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                            </label>
-                        </div>
-                        <button class=" sign-in btn btn-lg btn-primary btn-block" id="add-user" type="submit">Sign in</button>
-                    </form>
+            
+                <div id="restResult" class="col-lg-6 col-md-6">
+                    <p>Restarant searches go here!</p>
                 </div>
+                
+                <div id="groupResult" class="col-lg-6 col-md-6">
+                    <p>Groupon searches go here!</p>
+                </div>
+               
             </div>
-            <div class="col-md-4 col-md-3 col-xs-1"></div>
         </div>
     </div>
-    </div>
-    <script src="assets/javascript/app.js"></script>
-    <script src="assets/javascript/config.js"></script>
-
-   
-    
-
 </body>
