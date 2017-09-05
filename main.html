@@ -12,63 +12,67 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand text-center" href="index.html"></a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="main.html">Search</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand text-center" href="index.html"></a>
                 </div>
-                <!-- /.container-fluid -->
-            </nav>
-            <div class="row">
-                <div class="col-md-2 col-sm-2 col-xs-1"></div>
-                <div class="col-md-8 col-sm-8 col-xs-10">
-                    <div id="custom-search-input">
-                        <div id="searchbar" class="row">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                            <div class="input-group col-lg-12 col-md-10 col-sm-10 col-xs-10">
-                                <input type="text" class="form-control input-lg" id="search-input" placeholder="burritos, cheap food, Tony's" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select" data-toggle="dropdown">
-                                        <span data-bind="bs-drp-sel-label">Select...</span>
-                                        <input type="hidden" name="selected_value" data-bind="bs-drp-sel-value" value="">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" style="">
-                                        <li data-value="1"><a href="#">San Diego</a></li>
-                                        <li data-value="2"><a href="#">Los Angeles</a></li>
-                                        <li data-value="3"><a href="#">San Francisco</a></li>
-                                    </ul>
-                                    <button class="btn btn-info btn-lg" type="button" id="submitButton">
-                                          <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                        </div>
-                    </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="main.html">Search</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-1"></div>
+                <!-- /.navbar-collapse -->
             </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-1"></div>
+            <div class="col-md-8 col-sm-8 col-xs-10">
+                <div id="custom-search-input">
+                    <div id="searchbar" class="row">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        <div class="input-group col-lg-12 col-md-10 col-sm-10 col-xs-10">
+                            <input type="text" class="form-control input-lg" id="search-input" placeholder="burritos, cheap food, Tony's" />
+                            <input type="text" class="form-control input-lg" id="city-input" placeholder="City" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button" id="submitButton">
+                                      <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                    </div>
+                    <div id="restaurantDiv"></div>
+                    <div class="row like-dislike">
+                        <div class="col-lg-6 col-md-6 col-s-6 col-xs-6 text-center">
+                             <button class="btn btn-info btn-lg decision" type="button" id="dislikeButton">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-s-6 col-xs-6 text-center">
+                            <button class="btn btn-info btn-lg decision" type="button" id="likeButton">
+                                <i class="glyphicon glyphicon-heart"></i>
+                            </button>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-1"></div>
         </div>
+    </div>
     <script src="assets/javascript/app.js"></script>
-    </body>
+</body>
