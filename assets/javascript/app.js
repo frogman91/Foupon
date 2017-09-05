@@ -49,7 +49,7 @@ $("#submitButton").on("click", function(e) {
           //Append Result Restaurant Rating
           restaurantDiv.append(newRating);
 
-                  $('#likeButton, #disLikeButton').on('click', function(){
+                  $('.decision').on('click', function(){
                       //Step through Response Array Results
                             i ++;
                             /////Update restaurantDiv
