@@ -2,22 +2,18 @@
 
 $("#submitButton").on("click", function(e) {
         e.preventDefault();
-
         //value from search-input
         var searchValue = $("#search-input").val().trim();
-
         //your API key
         var newAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
-
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
-
         //Get current City value
         var place = $("#city-input").val().trim();
-
         //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+'in+' + place + '&key=' + newAPI;
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + newAPI;
 
+        // AJAX Call to Google Places API
         $.ajax({
             url: apiURL,
             method: 'POST',
@@ -25,21 +21,54 @@ $("#submitButton").on("click", function(e) {
                 'url': queryURL
             }
         }).done(function(response) {
-            var res = JSON.stringify(response);
-            console.log('AJAX RESPONSE = ', response)
-            for (var i = 0; i < response.data.results.length; i++) {
-              //Log Array Length
-              console.log('ARRAY LENGTH = ', response.data.results.length);
-              //Build Image URL from search results
-                    var newImage = $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference +  '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'});
-                    $("#restaurantImg").text(response.data.results[i]);
-                    //Prepend Result Restaurant Rating
-                    $('#restaurantImg').prepend("<p>Rating: " + response.data.results[i].rating + "</p>");
-                    //Prepend 1st Image
-                    $('#restaurantImg').prepend(newImage);
-                }
+          e.preventDefault();
+          var res = JSON.stringify(response);
+          console.log('AJAX RESPONSE = ', response)
+          var responseArray = response.data.results;
+          //Define Counter Variable
+          var i = 0;
+          // Define Restaurant Info Div
+          var restaurantDiv = $('#restaurantDiv');
+          //Build DIV Content Functions to Update with the counter variable
+          //Heade Func
+          var newHeader = function() { return  $('<h3>').text(responseArray[i].name)};
+          //Create Img Func
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[i].photo_reference + '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'})};
+          //Create Address P Func
+          var newAddress = function() { return $('<p>').text(responseArray[i].formatted_address)};
+          //Create Rating P Func
+          var newRating = function() { return $('<p>').text(responseArray[i].rating)};
+
+          //////// Append to DIV
+          //Append Name
+          restaurantDiv.append(newHeader);
+          //Append 1st Image
+          restaurantDiv.append(newImage);
+          //Append Address
+          restaurantDiv.append(newAddress);
+          //Append Result Restaurant Rating
+          restaurantDiv.append(newRating);
+
+                  $('#likeButton, #disLikeButton').on('click', function(){
+                      //Step through Response Array Results
+                            i ++;
+                            /////Update restaurantDiv
+                            //Update Name Header
+                            restaurantDiv.html(newHeader());
+                            //Update Image
+                            // restaurantDiv.append(newImage());
+                            //Prepend Address
+                            restaurantDiv.append(newAddress());
+                            //Prepend Result Restaurant Rating
+                            restaurantDiv.append(newRating());
+                      });
+                                // restaurantDiv.append(newHeader);
+
+        //Closes AJAX Done Function
         });
-    });
+  //Closes Search Button Function
+  });
+
 
 
 // let startingButton = function() {
