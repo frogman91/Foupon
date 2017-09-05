@@ -10,7 +10,7 @@ body {
 }
 
 .container-fluid {
-	background-color:#fff;
+    background-color:#fff;
 }
 
 .container {
@@ -22,11 +22,11 @@ body {
 }
 
 .navbar-brand {
-	background: url("../images/logo-name.png")center / contain no-repeat;
-	width:200px;
-  	transform: translateX(-50%);
- 	left: 53%;
-  	position: absolute;
+    background: url(“../images/logo-name.png”)center / contain no-repeat;
+    width:200px;
+      transform: translateX(-50%);
+     left: 53%;
+      position: absolute;
 }
 
 #restResult, #groupResult{
@@ -69,6 +69,12 @@ body {
     color:darkgray;
 }
 
+/*Added CSS*/
+.input-group-btn {
+  width: 120px;
+}
+
+
 .navbar-right {
     font-size: 18px;
 }
@@ -81,8 +87,8 @@ body {
 }
 
 .sign-in {
-	background-color:#68c62a;
-	border:none;
+    background-color:#68c62a ;
+    border:none;
 }
 .form-signin {
     max-width: 330px;
@@ -113,13 +119,13 @@ body {
     z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form-signin input[type=“email”] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form-signin input[type=“password”] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
