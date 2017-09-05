@@ -33,7 +33,7 @@ $("#submitButton").on("click", function(e) {
           //Heade Func
           var newHeader = function() { return  $('<h3>').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[i].photo_reference + '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'})};
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag'})};
           //Create Address P Func
           var newAddress = function() { return $('<p>').text(responseArray[i].formatted_address)};
           //Create Rating P Func
@@ -56,7 +56,7 @@ $("#submitButton").on("click", function(e) {
                             //Update Name Header
                             restaurantDiv.html(newHeader());
                             //Update Image
-                            // restaurantDiv.append(newImage());
+                            restaurantDiv.append(newImage());
                             //Prepend Address
                             restaurantDiv.append(newAddress());
                             //Prepend Result Restaurant Rating
