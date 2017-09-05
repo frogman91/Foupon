@@ -10,39 +10,43 @@ body {
 }
 
 .container-fluid {
-    background-color:#fff;
+    background-color: #fff;
 }
 
 .container {
-    height:100%;
+    height: 100%;
 }
 
 #searchbar {
-    margin-top:150px;
+    margin: 150px 0;
+    width:100%;
 }
 
 .navbar-brand {
-    background: url(“../images/logo-name.png”)center / contain no-repeat;
-    width:200px;
-      transform: translateX(-50%);
-     left: 53%;
-      position: absolute;
+    background: url(../images/logo-name.png)center / contain no-repeat;
+    width: 200px;
+    transform: translateX(-50%);
+    left: 53%;
+    position: absolute;
 }
 
-#restResult, #groupResult{
-    background-color:#fff;
-    font-size:18px;
+#restResult,
+#groupResult {
+    background-color: #fff;
+    font-size: 18px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    margin-top:50px;
-    padding:10px;
+    margin-top: 50px;
+    padding: 10px;
     text-align: center;
     vertical-align: middle;
 }
+
 #restResult {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 #groupResult {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -59,21 +63,44 @@ body {
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
-    height:46px;
+    height: 46px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
 .btn span {
-    font-size:18px;
-    color:darkgray;
+    font-size: 18px;
+    color: darkgray;
 }
+
 
 /*Added CSS*/
-.input-group-btn {
-  width: 120px;
+
+#city-input {
+    min-width:180px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+#search-input {
+    min-width: 180px;
 }
 
+#restaurantDiv {
+    background-color: #fff;
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom:5px;
+}
+
+#resultName {
+    background-color: #68c62a;
+    color:#fff;
+    border-bottom: 1px solid #ccc;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    padding:5px 0;
+}
 
 .navbar-right {
     font-size: 18px;
@@ -87,9 +114,10 @@ body {
 }
 
 .sign-in {
-    background-color:#68c62a ;
-    border:none;
+    background-color: #68c62a;
+    border: none;
 }
+
 .form-signin {
     max-width: 330px;
     padding: 15px;

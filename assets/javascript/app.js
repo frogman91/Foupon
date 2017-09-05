@@ -1,11 +1,18 @@
 // On Search Button Click
 
+function init() {
+  $("#restaurantDiv").hide();
+  $("#dislikeButton").hide();
+  $("#likeButton").hide();
+}
+init();
+
 $("#submitButton").on("click", function(e) {
         e.preventDefault();
         //value from search-input
         var searchValue = $("#search-input").val().trim();
         //your API key
-        var newAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+        var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
         //Get current City value
@@ -31,17 +38,18 @@ $("#submitButton").on("click", function(e) {
           var restaurantDiv = $('#restaurantDiv');
           //Build DIV Content Functions to Update with the counter variable
           //Heade Func
-          var newHeader = function() { return  $('<h3>').text(responseArray[i].name)};
+          var newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag' })};
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' 
+            + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew' })};
           //Create Address P Func
-          var newAddress = function() { return $('<p>').text(responseArray[i].formatted_address)};
+          var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
-          var newRating = function() { return $('<p>').text(responseArray[i].rating)};
+          var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
 
           //////// Append to DIV
           //Append Name
-          restaurantDiv.append(newHeader);
+          restaurantDiv.html(newHeader);
           //Append 1st Image
           restaurantDiv.append(newImage);
           //Append Address
@@ -66,6 +74,10 @@ $("#submitButton").on("click", function(e) {
 
         //Closes AJAX Done Function
         });
+        $("#restaurantDiv").show();
+        $("#dislikeButton").show();
+        $("#likeButton").show();
+        $("#searchbar").css("margin", "10px 0 25px 0");
   //Closes Search Button Function
   });
 
