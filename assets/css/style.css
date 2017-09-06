@@ -85,10 +85,23 @@ body {
 .decision {
     background-color: darkgreen;
     border:none;
+    height:100px;
+    width:100px;
+    margin:0 auto;
+   
+}
+
+#likeDisBut {
+ /*   height:355px;*/
+    vertical-align:middle;
 }
 
 .decision:hover, .decision:hover i  {
     background-color: #68c62a;
+}
+
+.glyphicon.glyphicon-heart, .glyphicon.glyphicon-remove {
+    font-size: 50px;
 }
 
 .btn span {
@@ -116,14 +129,15 @@ body {
     text-align: center;
     vertical-align: middle;
     padding-bottom: 5px;
+    max-height:500px;
 }
 
 #resultName {
     background-color: #68c62a;
     color: #fff;
     border-bottom: 1px solid #ccc;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+    border-radius: 6px;
+    
     padding: 5px 0;
 }
 

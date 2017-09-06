@@ -1,58 +1,3 @@
-// // initializes Firebase
-// var config = {
-//     apiKey: "AIzaSyAHL1gUv1RYc-YWV1zK72UDW29r1lVV1K4",
-//     authDomain: "foupon-6c9dd.firebaseapp.com",
-//     databaseURL: "https://foupon-6c9dd.firebaseio.com",
-//     projectId: "foupon-6c9dd",
-//     storageBucket: "foupon-6c9dd.appspot.com",
-//     messagingSenderId: "774072237770"
-// };
-// firebase.initializeApp(config);
-// // Create a variable to reference the database.
-// var database = firebase.database();
-
-// // Initial Values
-
-// var email = "";
-
-// // Capture Button Click
-// $("#add-user").on("click", function(event) {
-//     event.preventDefault();
-
-//     // Grabbed values from text-boxes
-//     email = $("#inputEmail").val().trim();
-
-//     // Code for "Setting values in the database"
-//     database.ref().set({
-
-//         email: email,
-
-//     });
-
-// });
-
-// // Firebase watcher + initial loader 
-// database.ref().on("value", function(snapshot) {
-
-//     // Logging everything that's coming out of snapshot
-//     console.log(snapshot.val());
-
-//     console.log(snapshot.val().email);
-
-
-
-//     // Changing the HTML to reflect
-
-//     $("#email-display").html(snapshot.val().email);
-
-
-
-//     // Handle errors
-// }, function(errorObject) {
-//     console.log("Errors handled: " + errorObject.code);
-// });
-
-
 //initialize function
 function init() {
     $("#restaurantDiv").hide();
@@ -83,13 +28,15 @@ $("#submitButton").on("click", function(e) {
     //value from search-input
     var searchValue = $("#search-input").val().trim();
     //your API key
-    var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+    var jonAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+    var annaAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+    var ricAPI = 'AIzaSyDYhDV3HvYPA4nty4qZ5TqvKNCNxGgtErg';
     //proxy url for the class
     var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
     //Get current City value
     var place = $("#city-input").val().trim();
     //the url for google places
-    var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + searchValue + 'in+' + place + '&key=' + newAPI;
+    var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + searchValue + 'in+' + place + '&key=' + annaAPI;
 
     // AJAX Call to Google Places API
     $.ajax({
@@ -113,8 +60,8 @@ $("#submitButton").on("click", function(e) {
         //Create Img Func
         var newImage = function() {
             return $('<img />', {
-                src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' +
-                    response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew'
+                src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=300&photoreference=' +
+                    response.data.results[i].photos[0].photo_reference + '&key=' + annaAPI
             })
         };
         //Create Address P Func
