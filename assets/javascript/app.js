@@ -1,3 +1,4 @@
+
 // On Search Button Click
 
 function init() {
@@ -12,13 +13,16 @@ $("#submitButton").on("click", function(e) {
         //value from search-input
         var searchValue = $("#search-input").val().trim();
         //your API key
-        var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+        var annaAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+        var jonAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
         //Get current City value
         var place = $("#city-input").val().trim();
         //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + newAPI;
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + annaAPI;
+
+        var testArray = ['x','y','z']; 
 
         // AJAX Call to Google Places API
         $.ajax({
@@ -37,15 +41,20 @@ $("#submitButton").on("click", function(e) {
           // Define Restaurant Info Div
           var restaurantDiv = $('#restaurantDiv');
           //Build DIV Content Functions to Update with the counter variable
-          //Heade Func
+          //Heade Function
           var newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' 
-            + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew' })};
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + annaAPI })};
           //Create Address P Func
-          var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
+           var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
-          var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
+           var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
+
+          //Set Data Attributes To Like Button for Info Storage in order to push to firebase
+          $("#likeButton").attr("data-name", responseArray[i].name);
+          $("#likeButton").attr("data-address", responseArray[i].formatted_address);
+          $("#likeButton").attr("data-rating", responseArray[i].rating);
+
 
           //////// Append to DIV
           //Append Name
@@ -58,8 +67,13 @@ $("#submitButton").on("click", function(e) {
           restaurantDiv.append(newRating);
 
                   $('.decision').on('click', function(){
+                      i++;
+                      $("#likeButton").attr("data-name", responseArray[i].name);
+                      $("#likeButton").attr("data-address", responseArray[i].formatted_address);
+                      $("#likeButton").attr("data-rating", responseArray[i].rating);
                       //Step through Response Array Results
-                            i ++;
+                          if(i < responseArray.length) {
+
                             /////Update restaurantDiv
                             //Update Name Header
                             restaurantDiv.html(newHeader());
@@ -69,8 +83,38 @@ $("#submitButton").on("click", function(e) {
                             restaurantDiv.append(newAddress());
                             //Prepend Result Restaurant Rating
                             restaurantDiv.append(newRating());
+
+                          } else {
+                            alert("ran out of coupons");
+                          }
+
                       });
-                                // restaurantDiv.append(newHeader);
+
+
+                  // On Button Like Click, Query For Coupons With Same Parameters as Original Search
+                  $('#likeButton').on('click', function(){
+                    var likeButtonData = $(this).attr("data-coupon");
+                    console.log(likeButtonData);
+                    var sqootAPI = 'GD6dkmwuVjt_Ia8tQSC8';
+                    var sqootURL = 'http://api.sqoot.com/v2/deals?api_key=' + sqootAPI + '&location=' + place + '&query=' + searchValue;
+                            console.log('queryURL ===', sqootURL)
+                            $.ajax({
+                                'url' : sqootURL,
+                                method: "GET"
+                            })
+                            .done(function(response) {
+                            //Log Sqoot Resonse
+                            console.log('SQOOT AJAX RESPONSE===',response);
+                            var couponArray = response.deals;
+                              for (var j = 0; j < couponArray.length; j++) {
+                                if (couponArray[j].deal.short_title.toLowerCase().match(responseArray[i].name.toLowerCase()));
+                                console.log('YES');
+                              }
+                          
+                          })
+
+                  });
+
 
         //Closes AJAX Done Function
         });
@@ -81,24 +125,15 @@ $("#submitButton").on("click", function(e) {
   //Closes Search Button Function
   });
 
-
-
-// let startingButton = function() {
-//     for (var i = 0; i < startingButton.length; i++) {
-//         $("#defaultSearchButtons").append("<button class='btn btn-info' id=" + startingButtons[i] + " value=" + startingButtons[i] + ">" + startingButtons[i] + "</button>");
-//     }
-//     $("button").click(function() {
-//         var fired_button = $(this).val().trim();
-//         event.preventDefault();
-//         let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + fired_button + "&api_key=95bfdd6cda3f400aa1f2c12d2ba93f14&limit=10";
-//         $.ajax({ url: queryURL, method: 'GET' })
-//             .done(function(response) {
-//                 for (var i = 0; i < response.data.length; i++) {
-//                     $('#gifArea').prepend("<img  src='" + response.data[i].images.fixed_height_still.url + "' >");
-//                     $('#gifArea').prepend("<p>Rating: " + response.data[i].rating + "</p>");
-//                     console.log(response);
-//                 }
-//             })
-
-//     });
-// }
+ // //Define Divs for Profile Page of Liked Restaurant/Food and Applicble Coupons
+                        // var profileRowDiv = $('<div class="newRow"></div>');
+                        // console.log('IS function BEING NOTICED====', newHeader())
+                        // var restResultDiv = $('<div class="restResultInfo   col-lg-6 col-md-6"></div>');
+                        // var groupResultDiv = $('<div class="groupResultInfo col-lg-6 col-md-6"></div>');
+                        // //Create new Row for Liked Restaurant/Food and Applicable Coupons
+                        // $('#profile-result').append(profileRowDiv);
+                        // //Enter Restaurant Info
+                        // $('.newRow').append(restResultDiv);
+                        // restResultDiv.html(newHeader());
+                        // restResultDiv.append(newAddress());
+                        // restResultDiv.append(newRating());
