@@ -17,6 +17,14 @@ body {
     height: 100%;
 }
 
+#welcome {
+    text-align: center;
+}
+
+#logo{
+    width:100%;
+}
+
 #searchbar {
     margin: 150px 0;
     width: 100%;
@@ -40,6 +48,9 @@ body {
     padding: 10px;
     text-align: center;
     vertical-align: middle;
+}
+.row {
+    margin:0;
 }
 
 #restResult {
@@ -130,6 +141,10 @@ body {
 .sign-in {
     background-color: #68c62a;
     border: none;
+}
+
+.sign-in:hover {
+    background-color: darkgreen;
 }
 
 .form-signin {

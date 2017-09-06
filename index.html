@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+
     <title>Foupon</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -40,10 +41,11 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="container">
+        <!-- <div class="container-fluid"> -->
             <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-1"></div>
+                <div id="spacer" class="col-md-4 col-sm-3 col-xs-1"></div>
                 <div id="main-content" class="col-md-4 col-sm-6 col-xs-10">
+                    <div id="welcome"></div>
                     <form class="form-signin">
                         <h2 class="form-signin-heading">Please sign in</h2>
                         <label for="inputEmail" class="sr-only">Email address</label>
@@ -55,13 +57,13 @@
                                 <input type="checkbox" value="remember-me"> Remember me
                             </label>
                         </div>
-                        <button class=" sign-in btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        <button id="add-user" class=" sign-in btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                     </form>
                 </div>
             </div>
-            <div class="col-md-4 col-md-3 col-xs-1"></div>
-        </div>
-    </div>
+            <div id="spacer" class="col-md-4 col-md-3 col-xs-1"></div>
+        <!-- </div> -->
+    <!-- </div> -->
     </div>
 <script src="assets/javascript/app.js"></script>
 </body>

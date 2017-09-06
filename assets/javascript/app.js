@@ -1,85 +1,160 @@
-// On Search Button Click
+// // initializes Firebase
+// var config = {
+//     apiKey: "AIzaSyAHL1gUv1RYc-YWV1zK72UDW29r1lVV1K4",
+//     authDomain: "foupon-6c9dd.firebaseapp.com",
+//     databaseURL: "https://foupon-6c9dd.firebaseio.com",
+//     projectId: "foupon-6c9dd",
+//     storageBucket: "foupon-6c9dd.appspot.com",
+//     messagingSenderId: "774072237770"
+// };
+// firebase.initializeApp(config);
+// // Create a variable to reference the database.
+// var database = firebase.database();
 
+// // Initial Values
+
+// var email = "";
+
+// // Capture Button Click
+// $("#add-user").on("click", function(event) {
+//     event.preventDefault();
+
+//     // Grabbed values from text-boxes
+//     email = $("#inputEmail").val().trim();
+
+//     // Code for "Setting values in the database"
+//     database.ref().set({
+
+//         email: email,
+
+//     });
+
+// });
+
+// // Firebase watcher + initial loader 
+// database.ref().on("value", function(snapshot) {
+
+//     // Logging everything that's coming out of snapshot
+//     console.log(snapshot.val());
+
+//     console.log(snapshot.val().email);
+
+
+
+//     // Changing the HTML to reflect
+
+//     $("#email-display").html(snapshot.val().email);
+
+
+
+//     // Handle errors
+// }, function(errorObject) {
+//     console.log("Errors handled: " + errorObject.code);
+// });
+
+
+//initialize function
 function init() {
-  $("#restaurantDiv").hide();
-  $("#dislikeButton").hide();
-  $("#likeButton").hide();
+    $("#restaurantDiv").hide();
+    $("#dislikeButton").hide();
+    $("#likeButton").hide();
+    $(".form-signin").hide();
+    $("#main-content").css("margin", "20px 0");
+    $("#spacer").removeClass("col-md-4 col-sm-3 col-xs-1");
+    $("#spacer").addClass("col-md-3 col-sm-3 col-xs-3");
+    $("#main-content").removeClass("col-md-4 col-sm-6 col-xs-10");
+    $("#main-content").addClass("col-md-6 col-sm-6 col-xs-6");
+    $("#welcome").append("<img id='logo' src='assets/images/logo.png' width='150px'> <h3>Welcome to Foupon. The web app thats lets you create a profile of local restaurants and automatically shows you all the best deals!!</h3>  <button id='new-user' class=' sign-in btn btn-lg btn-primary btn-block' type='submit'>Sign Up</button><button id='logIn' class='sign-in btn btn-lg btn-primary btn-block' type='submit'>Log In</button>");
 }
 init();
 
+$("#logIn").on("click", function(){
+  $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
+  $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
+  $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
+  $("#main-content").addClass("col-md-4 col-sm-6 col-xs-10");
+  $("#welcome").hide();
+  $(".form-signin").show();
+});
+
+// On Search Button Click
 $("#submitButton").on("click", function(e) {
+    e.preventDefault();
+    //value from search-input
+    var searchValue = $("#search-input").val().trim();
+    //your API key
+    var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+    //proxy url for the class
+    var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
+    //Get current City value
+    var place = $("#city-input").val().trim();
+    //the url for google places
+    var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + searchValue + 'in+' + place + '&key=' + newAPI;
+
+    // AJAX Call to Google Places API
+    $.ajax({
+        url: apiURL,
+        method: 'POST',
+        data: {
+            'url': queryURL
+        }
+    }).done(function(response) {
         e.preventDefault();
-        //value from search-input
-        var searchValue = $("#search-input").val().trim();
-        //your API key
-        var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
-        //proxy url for the class
-        var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
-        //Get current City value
-        var place = $("#city-input").val().trim();
-        //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + newAPI;
+        var res = JSON.stringify(response);
+        console.log('AJAX RESPONSE = ', response)
+        var responseArray = response.data.results;
+        //Define Counter Variable
+        var i = 0;
+        // Define Restaurant Info Div
+        var restaurantDiv = $('#restaurantDiv');
+        //Build DIV Content Functions to Update with the counter variable
+        //Heade Func
+        var newHeader = function() { return $('<h3 id="resultName">').text(responseArray[i].name) };
+        //Create Img Func
+        var newImage = function() {
+            return $('<img />', {
+                src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' +
+                    response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew'
+            })
+        };
+        //Create Address P Func
+        var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address) };
+        //Create Rating P Func
+        var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating) };
 
-        // AJAX Call to Google Places API
-        $.ajax({
-            url: apiURL,
-            method: 'POST',
-            data: {
-                'url': queryURL
-            }
-        }).done(function(response) {
-          e.preventDefault();
-          var res = JSON.stringify(response);
-          console.log('AJAX RESPONSE = ', response)
-          var responseArray = response.data.results;
-          //Define Counter Variable
-          var i = 0;
-          // Define Restaurant Info Div
-          var restaurantDiv = $('#restaurantDiv');
-          //Build DIV Content Functions to Update with the counter variable
-          //Heade Func
-          var newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
-          //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' 
-            + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew' })};
-          //Create Address P Func
-          var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
-          //Create Rating P Func
-          var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
+        //////// Append to DIV
+        //Append Name
+        restaurantDiv.html(newHeader);
+        //Append 1st Image
+        restaurantDiv.append(newImage);
+        //Append Address
+        restaurantDiv.append(newAddress);
+        //Append Result Restaurant Rating
+        restaurantDiv.append(newRating);
 
-          //////// Append to DIV
-          //Append Name
-          restaurantDiv.html(newHeader);
-          //Append 1st Image
-          restaurantDiv.append(newImage);
-          //Append Address
-          restaurantDiv.append(newAddress);
-          //Append Result Restaurant Rating
-          restaurantDiv.append(newRating);
-
-                  $('.decision').on('click', function(){
-                      //Step through Response Array Results
-                            i ++;
-                            /////Update restaurantDiv
-                            //Update Name Header
-                            restaurantDiv.html(newHeader());
-                            //Update Image
-                            restaurantDiv.append(newImage());
-                            //Prepend Address
-                            restaurantDiv.append(newAddress());
-                            //Prepend Result Restaurant Rating
-                            restaurantDiv.append(newRating());
-                      });
-                                // restaurantDiv.append(newHeader);
+        $('.decision').on('click', function() {
+            //Step through Response Array Results
+            i++;
+            /////Update restaurantDiv
+            //Update Name Header
+            restaurantDiv.html(newHeader());
+            //Update Image
+            restaurantDiv.append(newImage());
+            //Prepend Address
+            restaurantDiv.append(newAddress());
+            //Prepend Result Restaurant Rating
+            restaurantDiv.append(newRating());
+        });
+        // restaurantDiv.append(newHeader);
 
         //Closes AJAX Done Function
-        });
-        $("#restaurantDiv").show();
-        $("#dislikeButton").show();
-        $("#likeButton").show();
-        $("#searchbar").css("margin", "10px 0 25px 0");
-  //Closes Search Button Function
-  });
+    });
+    $("#restaurantDiv").show();
+    $("#dislikeButton").show();
+    $("#likeButton").show();
+    $("#searchbar").css("margin", "10px 0 25px 0");
+    //Closes Search Button Function
+});
 
 
 
