@@ -12,7 +12,8 @@ $("#submitButton").on("click", function(e) {
         //value from search-input
         var searchValue = $("#search-input").val().trim();
         //your API key
-        var newAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+        var annaAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
+        var jonAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
         //Get current City value
@@ -40,8 +41,7 @@ $("#submitButton").on("click", function(e) {
           //Heade Func
           var newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
-            + response.data.results[i].photos[0].photo_reference + '&key=AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew' })};
+          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + newAPI })};
           //Create Address P Func
           var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
