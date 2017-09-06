@@ -1,3 +1,10 @@
+//Define Variables
+
+var newHeader; 
+var newImage;
+var newAddress; 
+var newRating;
+
 // On Search Button Click
 
 function init() {
@@ -19,7 +26,9 @@ $("#submitButton").on("click", function(e) {
         //Get current City value
         var place = $("#city-input").val().trim();
         //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + jonAPI;
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + annaAPI;
+
+        var testArray = ['x','y','z']; 
 
         // AJAX Call to Google Places API
         $.ajax({
@@ -38,14 +47,20 @@ $("#submitButton").on("click", function(e) {
           // Define Restaurant Info Div
           var restaurantDiv = $('#restaurantDiv');
           //Build DIV Content Functions to Update with the counter variable
-          //Heade Func
-          var newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
+          //Heade Function
+           newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-          var newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + jonAPI })};
+           newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + annaAPI })};
           //Create Address P Func
-          var newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
+           newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
-          var newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
+           newRating = function() { return $('<p id="resultRating">').text('Rating: ' + responseArray[i].rating)};
+
+          //Set Data Attributes To Like Button for Info Storage in order to push to firebase
+          $("#likeButton").attr("data-name", responseArray[i].name);
+          $("#likeButton").attr("data-address", responseArray[i].formatted_address);
+          $("#likeButton").attr("data-rating", responseArray[i].rating);
+
 
           //////// Append to DIV
           //Append Name
@@ -58,8 +73,13 @@ $("#submitButton").on("click", function(e) {
           restaurantDiv.append(newRating);
 
                   $('.decision').on('click', function(){
+                      i++;
+                      $("#likeButton").attr("data-name", responseArray[i].name);
+                      $("#likeButton").attr("data-address", responseArray[i].formatted_address);
+                      $("#likeButton").attr("data-rating", responseArray[i].rating);
                       //Step through Response Array Results
-                            i ++;
+                          if(i < responseArray.length) {
+
                             /////Update restaurantDiv
                             //Update Name Header
                             restaurantDiv.html(newHeader());
@@ -70,34 +90,34 @@ $("#submitButton").on("click", function(e) {
                             //Prepend Result Restaurant Rating
                             restaurantDiv.append(newRating());
 
+                          } else {
+                            alert("ran out of coupons");
+                          }
+
                       });
 
 
                   // On Button Like Click, Query For Coupons With Same Parameters as Original Search
                   $('#likeButton').on('click', function(){
+                    var likeButtonData = $(this).attr("data-coupon");
+                    console.log(likeButtonData);
                     var sqootAPI = 'GD6dkmwuVjt_Ia8tQSC8';
                     var sqootURL = 'http://api.sqoot.com/v2/deals?api_key=' + sqootAPI + '&location=' + place + '&query=' + searchValue;
-                			console.log('queryURL ===', sqootURL)
-                		    $.ajax({
-                		        'url' : sqootURL,
-                		        method: "GET"
-                		    })
-                		    .done(function(response) {
-                		    console.log(response);
-                		    })
-
-                        //Define Divs for Profile Page of Liked Restaurant/Food and Applicble Coupons
-                        var profileRowDiv = $('<div class="newRow"></div>');
-                        console.log('IS function BEING NOTICED====', newHeader())
-                        var restResultDiv = $('<div class="restResultInfo   col-lg-6 col-md-6"></div>');
-                        var groupResultDiv = $('<div class="groupResultInfo col-lg-6 col-md-6"></div>');
-                        //Create new Row for Liked Restaurant/Food and Applicable Coupons
-                        $('#profile-result').append(profileRowDiv);
-                        //Enter Restaurant Info
-                        $('.newRow').append(restResultDiv);
-                        restResultDiv.html(newHeader());
-                        restResultDiv.append(newAddress());
-                        restResultDiv.append(newRating());
+                            console.log('queryURL ===', sqootURL)
+                            $.ajax({
+                                'url' : sqootURL,
+                                method: "GET"
+                            })
+                            .done(function(response) {
+                            //Log Sqoot Resonse
+                            console.log('SQOOT AJAX RESPONSE===',response);
+                            var couponArray = response.deals;
+                              for (var j = 0; j < couponArray.length; j++) {
+                                if (couponArray[j].deal.short_title.toLowerCase().match(responseArray[i].name.toLowerCase()))
+                                console.log('YES');
+                              }
+                          
+                          })
 
                   });
 
@@ -110,3 +130,16 @@ $("#submitButton").on("click", function(e) {
         $("#searchbar").css("margin", "10px 0 25px 0");
   //Closes Search Button Function
   });
+
+ // //Define Divs for Profile Page of Liked Restaurant/Food and Applicble Coupons
+                        // var profileRowDiv = $('<div class="newRow"></div>');
+                        // console.log('IS function BEING NOTICED====', newHeader())
+                        // var restResultDiv = $('<div class="restResultInfo   col-lg-6 col-md-6"></div>');
+                        // var groupResultDiv = $('<div class="groupResultInfo col-lg-6 col-md-6"></div>');
+                        // //Create new Row for Liked Restaurant/Food and Applicable Coupons
+                        // $('#profile-result').append(profileRowDiv);
+                        // //Enter Restaurant Info
+                        // $('.newRow').append(restResultDiv);
+                        // restResultDiv.html(newHeader());
+                        // restResultDiv.append(newAddress());
+                        // restResultDiv.append(newRating());
