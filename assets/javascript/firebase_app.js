@@ -4,7 +4,7 @@
     // Initial Values
     
     var email = "";
-    var likes = "";
+    
 
     var userObject = {};
 
@@ -34,13 +34,13 @@
     // });
 
     // Firebase watcher + initial loader 
-    database.ref().on("value", function(snapshot) {
+    database.ref("/userLikes").on("child_added", function(snapshot) {
 
       // Logging everything that's coming out of snapshot
       console.log(snapshot.val());
       
-      console.log(snapshot.val().email);
-      console.log(snapshot.val().likes);
+      console.log(snapshot.val().userEmail);
+      console.log(snapshot.val().liked);
       
       
 
@@ -110,6 +110,8 @@
         if(snapshot.val().userEmail === userObject.email) {
           // show the user likes
           console.log('our user likes', snapshot.val().liked);
+          console.log('our user likes', snapshot.val().address);
+          console.log('our user likes', snapshot.val().rating);
         }
       })
     } else {
@@ -123,7 +125,10 @@
     database.ref("/userLikes").push({
       userEmail: userObject.email, 
       userId: userObject.uid,
-      liked: $("#search-input").val().trim()
+      liked: $("#likeButton").data("name"),
+      address: $("#likeButton").data("address"),
+      rating: $("#likeButton").data("rating")
+
     }); 
   })
   // it saves the like to the database 
