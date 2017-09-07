@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foupon</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -56,14 +57,15 @@
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                     </div>
-                    <div id="restaurantDiv"></div>
+                    
                     <div class="row like-dislike">
-                        <div class="col-lg-6 col-md-6 col-s-6 col-xs-6 text-center">
+                        <div id="likeDisBut" class="col-lg-2 col-md-2 col-s-2 col-xs-6">
                              <button class="btn btn-info btn-lg decision" type="button" id="dislikeButton">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-s-6 col-xs-6 text-center">
+                        <div class="col-md-8 col-sm-8 col-xs-12" id="restaurantDiv"></div>
+                        <div id="likeDisBut" class="col-lg-2 col-md-2 col-s-2 col-xs-6">
                             <button class="btn btn-info btn-lg decision" type="button" id="likeButton">
                                 <i class="glyphicon glyphicon-heart"></i>
                             </button>
