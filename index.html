@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
 
     <title>Foupon</title>
-    <!-- jQuery -->
+ <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- style link -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
@@ -32,9 +33,10 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Home</a></li>
+                        
                         <li><a href="profile.html">Profile</a></li>
                         <li><a href="main.html">Search</a></li>
+                        <li><a id="logout" href="index.html">Logout</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -48,14 +50,24 @@
                     <div id="welcome"></div>
                     <form class="form-signin">
                         <h2 class="form-signin-heading">Please sign in</h2>
+                        <label for="loginEmail" class="sr-only">Email address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <label for="loginPassword" class="sr-only">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <button id="login-user" class=" sign-in btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+                    <form class="form-signUp">
+                        <h2 class="form-signUp-heading">Please Enter Email and Password</h2>
                         <label for="inputEmail" class="sr-only">Email address</label>
                         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                         <label for="inputPassword" class="sr-only">Password</label>
                         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
                         <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                            </label>
                         </div>
                         <button id="add-user" class=" sign-in btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                     </form>
@@ -65,5 +77,6 @@
         <!-- </div> -->
     <!-- </div> -->
     </div>
-<script src="assets/javascript/app.js"></script>
+    <script src="assets/javascript/firebase.js"></script>
+    <script src="assets/javascript/app.js"></script>
 </body>

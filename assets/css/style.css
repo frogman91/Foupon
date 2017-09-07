@@ -88,11 +88,17 @@ body {
     height:100px;
     width:100px;
     margin:0 auto;
-   
 }
 
 #likeDisBut {
     vertical-align:middle;
+}
+
+.decision:focus  {
+    background-color:darkgreen;
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
 }
 
 .decision:hover, .decision:hover i  {
@@ -194,6 +200,50 @@ body {
 }
 
 .form-signin input[type=“password”] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signUp-heading {
+    font-size: 19px;
+}
+
+.form-signUp {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signUp .form-signUp-heading,
+.form-signUp .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signUp .checkbox {
+    font-weight: normal;
+}
+
+.form-signUp .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.form-signUp .form-control:focus {
+    z-index: 2;
+}
+
+.form-signUp input[type=“email”] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signUp input[type=“password”] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
