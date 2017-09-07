@@ -4,7 +4,9 @@ var newHeader;
 var newImage;
 var newAddress;
 var newRating;
+var newCoupons = [];
 
+var userEmail = 'test@email.com';
 // On Search Button Click
 
 function init() {
@@ -43,6 +45,7 @@ $("#submitButton").on("click", function(e) {
           var res = JSON.stringify(response);
           console.log('AJAX RESPONSE = ', response)
           var responseArray = response.data.results;
+          var placeName;
           //Define Counter Variable
           var i = 0;
           // Define Restaurant Info Div
@@ -51,7 +54,13 @@ $("#submitButton").on("click", function(e) {
           //Heade Function
            newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-           newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })};
+           newImage = function(){
+            if (responseArray[i].photos) {
+              { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })}
+            } else if (responseArray[i].photos == null || responseArray[i].photos == false){
+                return $('<img/>'), {src: '..\images\noImg.jpg'};
+            }
+          };
           //Create Address P Func
            newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
@@ -61,6 +70,7 @@ $("#submitButton").on("click", function(e) {
           $("#likeButton").attr("data-name", responseArray[i].name);
           $("#likeButton").attr("data-address", responseArray[i].formatted_address);
           $("#likeButton").attr("data-rating", responseArray[i].rating);
+          $("#likeButton").attr("data-userEmail", userEmail);
 
 
           //////// Append to DIV
@@ -75,10 +85,10 @@ $("#submitButton").on("click", function(e) {
 
                   $('.decision').on('click', function(){
                       i++;
+                      placeName = responseArray[i].name;
 
                       //Step through Response Array Results
                           if(i < responseArray.length) {
-
                             /////Update restaurantDiv
                             //Update Name Header
                             restaurantDiv.html(newHeader());
@@ -113,12 +123,19 @@ $("#submitButton").on("click", function(e) {
                             //Log Sqoot Resonse
                             console.log('SQOOT AJAX RESPONSE===',response);
                             var couponArray = response.deals;
-                              for (var j = 0; j < couponArray.length; j++) {
-                                if (couponArray[j].deal.short_title.toLowerCase().match(responseArray[i].name.toLowerCase()))
-                                console.log('YES');
-                              }
-
-                          })
+                                  for (var j = 0; j < couponArray.length; j++) {
+                                    // Current Name of Coupon/Coupon Info
+                                    var couponName = couponArray[j].deal.short_title;
+                                    // Log Current Coupon Name
+                                    console.log('CURRENT COUPON NAME ===', couponName);
+                                    console.log('PLACE NAME===', placeName);
+                                          // If any of the Coupon Details include the Name of the Restaurant, Add to newCoupons Array
+                                            if (couponName.toLowerCase().match(placeName.toLowerCase())) {
+                                              newCoupons.push(couponArray[j].deal.short_title);
+                                              console.log('NEW COUPON ADDED, YES====', newCoupons);
+                                          }
+                                  }
+                            })
 
                   });
 
