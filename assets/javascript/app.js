@@ -51,7 +51,13 @@ $("#submitButton").on("click", function(e) {
           //Heade Function
            newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-           newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })};
+           newImage = function(){
+            if (responseArray[i].photos) {
+              { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=300&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })}
+            } else if (responseArray[i].photos == null || responseArray[i].photos == false){
+                return $('<img/>'), {src: '../images/noImg.jpg'};
+            }
+          };
           //Create Address P Func
            newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
