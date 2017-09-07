@@ -1,8 +1,8 @@
 //Define Variables
 
-var newHeader; 
+var newHeader;
 var newImage;
-var newAddress; 
+var newAddress;
 var newRating;
 
 // On Search Button Click
@@ -21,14 +21,15 @@ $("#submitButton").on("click", function(e) {
         //your API key
         var annaAPI = 'AIzaSyDfIrwEUZ0uUeJT2hDf9mK5ISRRT2einag';
         var jonAPI = 'AIzaSyDcvNrflCgCWKKMnOXp4q8gcDNAftiSPew';
+        var ricardoAPI = 'AIzaSyDYhDV3HvYPA4nty4qZ5TqvKNCNxGgtErg';
         //proxy url for the class
         var apiURL = 'https://proxy-cbc.herokuapp.com/proxy';
         //Get current City value
         var place = $("#city-input").val().trim();
         //the url for google places
-        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + annaAPI;
+        var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+searchValue+ 'in+' + place + '&key=' + ricardoAPI;
 
-        var testArray = ['x','y','z']; 
+        var testArray = ['x','y','z'];
 
         // AJAX Call to Google Places API
         $.ajax({
@@ -50,7 +51,7 @@ $("#submitButton").on("click", function(e) {
           //Heade Function
            newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
           //Create Img Func
-           newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + annaAPI })};
+           newImage = function() { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })};
           //Create Address P Func
            newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address)};
           //Create Rating P Func
@@ -74,9 +75,7 @@ $("#submitButton").on("click", function(e) {
 
                   $('.decision').on('click', function(){
                       i++;
-                      $("#likeButton").attr("data-name", responseArray[i].name);
-                      $("#likeButton").attr("data-address", responseArray[i].formatted_address);
-                      $("#likeButton").attr("data-rating", responseArray[i].rating);
+
                       //Step through Response Array Results
                           if(i < responseArray.length) {
 
@@ -89,18 +88,20 @@ $("#submitButton").on("click", function(e) {
                             restaurantDiv.append(newAddress());
                             //Prepend Result Restaurant Rating
                             restaurantDiv.append(newRating());
+                            $("#likeButton").attr("data-name", responseArray[i].name);
+                            $("#likeButton").attr("data-address", responseArray[i].formatted_address);
+                            $("#likeButton").attr("data-rating", responseArray[i].rating);
 
                           } else {
                             alert("ran out of coupons");
                           }
 
-                      });
+                    });
 
 
                   // On Button Like Click, Query For Coupons With Same Parameters as Original Search
                   $('#likeButton').on('click', function(){
                     var likeButtonData = $(this).attr("data-coupon");
-                    console.log(likeButtonData);
                     var sqootAPI = 'GD6dkmwuVjt_Ia8tQSC8';
                     var sqootURL = 'http://api.sqoot.com/v2/deals?api_key=' + sqootAPI + '&location=' + place + '&query=' + searchValue;
                             console.log('queryURL ===', sqootURL)
@@ -116,7 +117,7 @@ $("#submitButton").on("click", function(e) {
                                 if (couponArray[j].deal.short_title.toLowerCase().match(responseArray[i].name.toLowerCase()))
                                 console.log('YES');
                               }
-                          
+
                           })
 
                   });
