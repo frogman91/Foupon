@@ -17,6 +17,14 @@ body {
     height: 100%;
 }
 
+#welcome {
+    text-align: center;
+}
+
+#logo{
+    width:100%;
+}
+
 #searchbar {
     margin: 150px 0;
     width: 100%;
@@ -40,6 +48,9 @@ body {
     padding: 10px;
     text-align: center;
     vertical-align: middle;
+}
+.row {
+    margin:0;
 }
 
 #restResult {
@@ -74,10 +85,22 @@ body {
 .decision {
     background-color: darkgreen;
     border:none;
+    height:100px;
+    width:100px;
+    margin:0 auto;
+   
+}
+
+#likeDisBut {
+    vertical-align:middle;
 }
 
 .decision:hover, .decision:hover i  {
     background-color: #68c62a;
+}
+
+.glyphicon.glyphicon-heart, .glyphicon.glyphicon-remove {
+    font-size: 50px;
 }
 
 .btn span {
@@ -111,8 +134,7 @@ body {
     background-color: #68c62a;
     color: #fff;
     border-bottom: 1px solid #ccc;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+    border-radius: 6px;
     padding: 5px 0;
 }
 
@@ -130,6 +152,10 @@ body {
 .sign-in {
     background-color: #68c62a;
     border: none;
+}
+
+.sign-in:hover {
+    background-color: darkgreen;
 }
 
 .form-signin {
