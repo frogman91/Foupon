@@ -92,7 +92,6 @@ body {
 }
 
 #likeDisBut {
- /*   height:355px;*/
     vertical-align:middle;
 }
 
@@ -129,7 +128,6 @@ body {
     text-align: center;
     vertical-align: middle;
     padding-bottom: 5px;
-    max-height:500px;
 }
 
 #resultName {
@@ -137,7 +135,6 @@ body {
     color: #fff;
     border-bottom: 1px solid #ccc;
     border-radius: 6px;
-    
     padding: 5px 0;
 }
 
