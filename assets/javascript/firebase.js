@@ -15,12 +15,8 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // Initial Values
-
 var email = "";
-
-
 var userObject = {};
-
 
 // Capture Button Click
 $("#add-user").on("click", function(event) {
@@ -33,21 +29,14 @@ $("#add-user").on("click", function(event) {
 // Firebase watcher + initial loader 
 database.ref("/userLikes").on("child_added", function(snapshot) {
 
-    // Logging everything that's coming out of snapshot
-
-
-
     // Changing the HTML to reflect
 
     $("#email-display").html(snapshot.val().email);
-
-
 
     // Handle errors
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
-
 
 var btnLogout = document.getElementById("btnLogout");
 var signedIn;
@@ -86,7 +75,6 @@ $("#login-user").on("click", function(e) {
         // ...
     });
 
-
 });
 
 $("#logout").on("click", function(e) {
@@ -101,7 +89,6 @@ $("#logout").on("click", function(e) {
     });
     window.location.href = 'index.html';
 })
-
 
 //check to see if the user is signed in
 firebase.auth().onAuthStateChanged(function(user) {
@@ -121,6 +108,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     } else {
         // No user is signed in.
         $("#logout").html("<a id='login' href='index.html'>Login</a>");
+        $("#tableThing").append("<h1 class='text-center' style='margin-bottom: 20px'> Your search results will appear here, go log in and get some searches!! </h1>");
 
     }
 });
