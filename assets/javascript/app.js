@@ -1,15 +1,11 @@
-
+//Declare Global Variables
 var newHeader;
 var newImage;
 var newAddress;
 var newRating;
-var newCoupons = [];
+var newCoupon = 'No New Coupon';
 
-
-
-
-
-//initialize function
+//initialize function to Hide / Show Log In and Sign Up Divs On Home Page
 function init() {
     $("#restaurantDiv").hide();
     $("#dislikeButton").hide();
@@ -26,8 +22,16 @@ function init() {
 init();
 
 
-
 $("#logIn").on("click", function(){
+  $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
+  $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
+  $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
+  $("#main-content").addClass("col-md-4 col-sm-6 col-xs-10");
+  $("#welcome").hide();
+  $(".form-signin").show();
+});
+
+$("#login").on("click", function(){
   $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
   $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
   $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
@@ -60,8 +64,6 @@ $("#submitButton").on("click", function(e) {
     var place = $("#city-input").val().trim();
     //the url for google places
     var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + searchValue + 'in+' + place + '&key=' + jonAPI;
-
-    var testArray = ['x', 'y', 'z'];
 
     // AJAX Call to Google Places API
     $.ajax({
@@ -100,8 +102,7 @@ $("#submitButton").on("click", function(e) {
         $("#likeButton").data("name", responseArray[i].name);
         $("#likeButton").data("address", responseArray[i].formatted_address);
         $("#likeButton").data("rating", responseArray[i].rating);
-        $("#likeButton").data("userEmail", userEmail);
-
+        $("#likeButton").data("coupon", newCoupon);
 
         //////// Append to DIV
         //Append Name
@@ -131,11 +132,9 @@ $("#submitButton").on("click", function(e) {
                 $("#likeButton").data("name", responseArray[i].name);
                 $("#likeButton").data("address", responseArray[i].formatted_address);
                 $("#likeButton").data("rating", responseArray[i].rating);
+                $("#likeButton").data("coupon", newCoupon);
             }
-
-
         });
-
 
 
         // On Button Like Click, Query For Coupons With Same Parameters as Original Search
@@ -152,16 +151,16 @@ $("#submitButton").on("click", function(e) {
                     console.log('SQOOT AJAX RESPONSE===', response);
                     var couponArray = response.deals;
                     for (var j = 0; j < couponArray.length; j++) {
+                      $("#likeButton").data("coupon", newCoupon);
                         // Current Name of Coupon/Coupon Info
                         var couponName = couponArray[j].deal.short_title;
-                        // Log Current Coupon Name
-                        console.log('CURRENT COUPON NAME ===', couponName);
-                        console.log('PLACE NAME===', placeName);
-                        // If any of the Coupon Details include the Name of the Restaurant, Add to newCoupons Array
+                        // If any of the Coupon Details include the Name of the Restaurant, Add to Coupon Display in Profile
                         if (couponName.toLowerCase().match(placeName.toLowerCase())) {
-                            newCoupons.push(couponArray[j].deal.short_title);
-                            $(this).data("coupon", couponArray[j].deal.short_title);
-                            console.log('NEW COUPON ADDED, YES====', newCoupons);
+                            newCoupon = couponArray[j].deal.short_title;
+                            $(this).data("coupon", newCoupon);
+                        } else {
+                            newCoupon = 'No New Coupon';
+                            $(this).data("coupon", 'No New Coupons');
                         }
                     }
                 })
@@ -175,6 +174,3 @@ $("#submitButton").on("click", function(e) {
     $("#searchbar").css("margin", "10px 0 25px 0");
     //Closes Search Button Function
 });
-
-
- 

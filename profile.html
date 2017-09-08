@@ -5,23 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foupon</title>
-     <!-- jQuery -->
+    <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- style link -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
 </head>
-    <body>
+
+<body>
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-
                     <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -45,15 +44,21 @@
         <div id="profile-result">
             <div class="row">
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                <div id="restResult" class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
-                    <p>Restarant searches go here!</p>
-                </div>
-                
-                <div id="groupResult" class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
-                    <p>Groupon searches go here!</p>
+                <div id="tableThing" class="col-lg-10 col-md-10 col-sm-10 col-xs-10 panel panel-default"">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Rating</th>
+                            <th>Coupon</th>
+                            </tr>
+                        </thead>
+                        <tbody id="restResult">
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-               
             </div>
         </div>
     </div>
