@@ -30,7 +30,7 @@ $("#add-user").on("click", function(event) {
     email = $("#inputEmail").val().trim();
 });
 
-// Firebase watcher + initial loader 
+// Firebase watcher + initial loader
 database.ref("/userLikes").on("child_added", function(snapshot) {
 
     // Logging everything that's coming out of snapshot
@@ -127,9 +127,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-// checking in the userLikes database 
+// checking in the userLikes database
 database.ref("/userLikes").on("child_added", function(snapshot) {
-    // if the email from the database matches the email from the 
+    // if the email from the database matches the email from the
     // logged in user
     if (snapshot.val().userEmail === userObject.email) {
         // show the user likes
@@ -142,7 +142,7 @@ database.ref("/userLikes").on("child_added", function(snapshot) {
     }
 })
 
-//when the user click the like button 
+//when the user click the like button
 $("#likeButton").on("click", function(e) {
     e.preventDefault();
     database.ref("/userLikes").push({
@@ -155,5 +155,5 @@ $("#likeButton").on("click", function(e) {
 
     });
 })
-// it saves the like to the database 
+// it saves the like to the database
 // and is tied back the user

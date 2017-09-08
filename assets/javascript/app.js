@@ -4,10 +4,6 @@ var newImage;
 var newAddress;
 var newRating;
 
-<<<<<<< HEAD
-// On Search Button Click
-=======
->>>>>>> f92a2c7bad0cafdfb3f5d457dcafa1c4f47fe49b
 
 //initialize function
 function init() {
