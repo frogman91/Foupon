@@ -1,10 +1,11 @@
+//Declare Global Variables
 var newHeader;
 var newImage;
 var newAddress;
 var newRating;
-var newCoupons = [];
+var newCoupon = 'No New Coupon';
 
-//initialize function
+//initialize function to Hide / Show Log In and Sign Up Divs On Home Page
 function init() {
     $("#restaurantDiv").hide();
     $("#dislikeButton").hide();
@@ -19,7 +20,6 @@ function init() {
     $("#welcome").append("<img id='logo' src='assets/images/logo.png' width='150px'> <h3>Welcome to Foupon. The web app thats lets you create a profile of local restaurants and automatically shows you all the best deals!!</h3>  <button id='new-user' class=' sign-in btn btn-lg btn-primary btn-block' type='submit'>Sign Up</button><button id='logIn' class='sign-in btn btn-lg btn-primary btn-block' type='submit'>Log In</button>");
 }
 init();
-
 
 
 $("#logIn").on("click", function(){
@@ -65,8 +65,6 @@ $("#submitButton").on("click", function(e) {
     //the url for google places
     var queryURL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + searchValue + 'in+' + place + '&key=' + jonAPI;
 
-    var testArray = ['x', 'y', 'z'];
-
     // AJAX Call to Google Places API
     $.ajax({
         url: apiURL,
@@ -104,7 +102,7 @@ $("#submitButton").on("click", function(e) {
         $("#likeButton").data("name", responseArray[i].name);
         $("#likeButton").data("address", responseArray[i].formatted_address);
         $("#likeButton").data("rating", responseArray[i].rating);
-
+        $("#likeButton").data("coupon", newCoupon);
 
         //////// Append to DIV
         //Append Name
@@ -134,11 +132,9 @@ $("#submitButton").on("click", function(e) {
                 $("#likeButton").data("name", responseArray[i].name);
                 $("#likeButton").data("address", responseArray[i].formatted_address);
                 $("#likeButton").data("rating", responseArray[i].rating);
+                $("#likeButton").data("coupon", newCoupon);
             }
-
-
         });
-
 
 
         // On Button Like Click, Query For Coupons With Same Parameters as Original Search
@@ -155,14 +151,16 @@ $("#submitButton").on("click", function(e) {
                     console.log('SQOOT AJAX RESPONSE===', response);
                     var couponArray = response.deals;
                     for (var j = 0; j < couponArray.length; j++) {
+                      $("#likeButton").data("coupon", newCoupon);
                         // Current Name of Coupon/Coupon Info
                         var couponName = couponArray[j].deal.short_title;
-                        // Log Current Coupon Name
-
-                        // If any of the Coupon Details include the Name of the Restaurant, Add to newCoupons Array
+                        // If any of the Coupon Details include the Name of the Restaurant, Add to Coupon Display in Profile
                         if (couponName.toLowerCase().match(placeName.toLowerCase())) {
-                            newCoupons.push(couponArray[j].deal.short_title);
-                            $(this).data("coupon", couponArray[j].deal.short_title);
+                            newCoupon = couponArray[j].deal.short_title;
+                            $(this).data("coupon", newCoupon);
+                        } else {
+                            newCoupon = 'No New Coupon';
+                            $(this).data("coupon", 'No New Coupons');
                         }
                     }
                 })
@@ -176,6 +174,3 @@ $("#submitButton").on("click", function(e) {
     $("#searchbar").css("margin", "10px 0 25px 0");
     //Closes Search Button Function
 });
-
-
- 

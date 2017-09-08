@@ -9,8 +9,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
-
 // Create a variable to reference the database.
 var database = firebase.database();
 
@@ -69,19 +67,16 @@ $("#login-user").on("click", function(e) {
     firebase.auth().signInWithEmailAndPassword(email, pass).then(function() {
         window.location.href = 'main.html';
     }).catch(function(error) {
-
         // Handle Errors here.
         console.log(error);
         // ...
     });
-
 });
 
 $("#logout").on("click", function(e) {
     e.preventDefault();
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
-
 
     }).catch(function(error) {
         // An error happened.
@@ -132,7 +127,8 @@ $("#likeButton").on("click", function(e) {
         userId: userObject.uid,
         liked: $("#likeButton").data("name"),
         address: $("#likeButton").data("address"),
-        rating: $("#likeButton").data("rating")
+        rating: $("#likeButton").data("rating"),
+        coupon: $("#likeButton").data("coupon")
 
     });
 })
