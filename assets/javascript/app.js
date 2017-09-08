@@ -4,7 +4,6 @@ var newAddress;
 var newRating;
 var newCoupons = [];
 
-var userEmail = 'test@email.com';
 
 
 
@@ -27,6 +26,15 @@ init();
 
 
 $("#logIn").on("click", function(){
+  $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
+  $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
+  $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
+  $("#main-content").addClass("col-md-4 col-sm-6 col-xs-10");
+  $("#welcome").hide();
+  $(".form-signin").show();
+});
+
+$("#login").on("click", function(){
   $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
   $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
   $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
@@ -98,7 +106,6 @@ $("#submitButton").on("click", function(e) {
         $("#likeButton").data("name", responseArray[i].name);
         $("#likeButton").data("address", responseArray[i].formatted_address);
         $("#likeButton").data("rating", responseArray[i].rating);
-        $("#likeButton").data("userEmail", userEmail);
 
 
         //////// Append to DIV
@@ -151,13 +158,11 @@ $("#submitButton").on("click", function(e) {
                         // Current Name of Coupon/Coupon Info
                         var couponName = couponArray[j].deal.short_title;
                         // Log Current Coupon Name
-                        console.log('CURRENT COUPON NAME ===', couponName);
-                        console.log('PLACE NAME===', placeName);
+        
                         // If any of the Coupon Details include the Name of the Restaurant, Add to newCoupons Array
                         if (couponName.toLowerCase().match(placeName.toLowerCase())) {
                             newCoupons.push(couponArray[j].deal.short_title);
                             $(this).data("coupon", couponArray[j].deal.short_title);
-                            console.log('NEW COUPON ADDED, YES====', newCoupons);
                         }
                     }
                 })
