@@ -11,5 +11,5 @@ Ricardo Alcazar
 Jon Healy
 Anna Crespo
 
-![login page](Screen Shot 2017-09-07 at 11.24.54PM.png "Foupon login page")
+![login page](assets/images/loginPage.png "Foupon login page")
 
