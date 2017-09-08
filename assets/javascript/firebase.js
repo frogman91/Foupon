@@ -10,6 +10,7 @@ var config = {
 firebase.initializeApp(config);
 
 
+
 // Create a variable to reference the database.
 var database = firebase.database();
 
@@ -68,16 +69,20 @@ $("#login-user").on("click", function(e) {
     firebase.auth().signInWithEmailAndPassword(email, pass).then(function() {
         window.location.href = 'main.html';
     }).catch(function(error) {
+
         // Handle Errors here.
         console.log(error);
         // ...
     });
+
 });
 
 $("#logout").on("click", function(e) {
     e.preventDefault();
     firebase.auth().signOut().then(function() {
-    // Sign-out successful.
+        // Sign-out successful.
+
+
     }).catch(function(error) {
         // An error happened.
         console.log(error);

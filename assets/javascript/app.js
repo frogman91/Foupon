@@ -2,6 +2,7 @@ var newHeader;
 var newImage;
 var newAddress;
 var newRating;
+var newCoupons = [];
 
 //initialize function
 function init() {
@@ -18,8 +19,6 @@ function init() {
     $("#welcome").append("<img id='logo' src='assets/images/logo.png' width='150px'> <h3>Welcome to Foupon. The web app thats lets you create a profile of local restaurants and automatically shows you all the best deals!!</h3>  <button id='new-user' class=' sign-in btn btn-lg btn-primary btn-block' type='submit'>Sign Up</button><button id='logIn' class='sign-in btn btn-lg btn-primary btn-block' type='submit'>Log In</button>");
 }
 init();
-
-
 
 
 
@@ -68,35 +67,34 @@ $("#submitButton").on("click", function(e) {
 
     var testArray = ['x', 'y', 'z'];
 
-      // AJAX Call to Google Places API
-        $.ajax({
-            url: apiURL,
-            method: 'POST',
-            data: {
-                'url': queryURL
-            }
-<<<<<<< HEAD
-        }).done(function(response) {
-          e.preventDefault();
-          var res = JSON.stringify(response);
-          console.log('AJAX RESPONSE = ', response)
-          var responseArray = response.data.results;
-          //Define Counter Variable
-          var i = 0;
-          // Define Restaurant Info Div
-          var restaurantDiv = $('#restaurantDiv');
-          //Build DIV Content Functions to Update with the counter variable
-          //Heade Function
-           newHeader = function() { return  $('<h3 id="resultName">').text(responseArray[i].name)};
-          //Create Img Func
-           newImage = function(){
-            if (responseArray[i].photos) {
-              { return $('<img />', {src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=300&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + ricardoAPI })}
-            } else if (responseArray[i].photos == null || responseArray[i].photos == false){
-                return $('<img/>', { src: '../images/noImg.jpg'});
+    // AJAX Call to Google Places API
+    $.ajax({
+        url: apiURL,
+        method: 'POST',
+        data: {
+            'url': queryURL
+        }
+    }).done(function(response) {
+        e.preventDefault();
+
+        var res = JSON.stringify(response);
+        console.log('AJAX RESPONSE = ', response)
+        var responseArray = response.data.results;
+        var placeName;
+        //Define Counter Variable
+        var i = 0;
+        // Define Restaurant Info Div
+        var restaurantDiv = $('#restaurantDiv');
+        //Build DIV Content Functions to Update with the counter variable
+        //Heade Function
+        newHeader = function() { return $('<h3 id="resultName">').text(responseArray[i].name) };
+        //Create Img Func
+        newImage = function() {
+            if (responseArray[i].photos) { { return $('<img />', { src: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=300&photoreference=' + responseArray[i].photos[0].photo_reference + '&key=' + jonAPI }) }
+            } else if (responseArray[i].photos == null || responseArray[i].photos == false) {
+                return $('<img/>', { src: 'assets/images/noImg.jpg' });
             }
         };
-
         //Create Address P Func
         newAddress = function() { return $('<p id="resultAddress">').text(responseArray[i].formatted_address) };
         //Create Rating P Func
@@ -118,11 +116,10 @@ $("#submitButton").on("click", function(e) {
         //Append Result Restaurant Rating
         restaurantDiv.append(newRating);
 
-
-        //Step Through Both Like and Dislike Button
         $('.decision').on('click', function() {
             i++;
             placeName = responseArray[i].name;
+
             //Step through Response Array Results
             if (i < responseArray.length) {
                 /////Update restaurantDiv
@@ -137,40 +134,41 @@ $("#submitButton").on("click", function(e) {
                 $("#likeButton").data("name", responseArray[i].name);
                 $("#likeButton").data("address", responseArray[i].formatted_address);
                 $("#likeButton").data("rating", responseArray[i].rating);
-
-            } else {
-              alert ('RAN OUT OF COUPONS');
             }
-          });
 
 
-          // On Button Like Click, Query For Coupons With Same Parameters as Original Search
-          $('#likeButton').on('click', function(){
+        });
+
+
+
+        // On Button Like Click, Query For Coupons With Same Parameters as Original Search
+        $('#likeButton').on('click', function() {
             var sqootAPI = 'GD6dkmwuVjt_Ia8tQSC8';
             var sqootURL = 'http://api.sqoot.com/v2/deals?api_key=' + sqootAPI + '&location=' + place + '&query=' + searchValue;
             console.log('queryURL ===', sqootURL)
             $.ajax({
-                'url' : sqootURL,
-                method: "GET"
-            })
-              .done(function(response) {
-              //Log Sqoot Resonse
-              console.log('SQOOT AJAX RESPONSE===',response);
-              var couponArray = response.deals;
-                for (var j = 0; j < couponArray.length; j++) {
-                  // Current Name of Coupon/Coupon Info
-                  var couponName = coupounArray[j].deal.short_title;
-                  // var likeButtonData = $(this).attr("data-coupon");
+                    'url': sqootURL,
+                    method: "GET"
+                })
+                .done(function(response) {
+                    //Log Sqoot Resonse
+                    console.log('SQOOT AJAX RESPONSE===', response);
+                    var couponArray = response.deals;
+                    for (var j = 0; j < couponArray.length; j++) {
+                        // Current Name of Coupon/Coupon Info
+                        var couponName = couponArray[j].deal.short_title;
+                        // Log Current Coupon Name
 
-                if (couponName.toLowerCase().match(placeName.toLowerCase())) {
-                    newCoupons.push(couponArray[j].deal.short_title);
-                    $(this).data("coupon", couponArray[j].deal.short_title);
-                }
-            }
-        })
+                        // If any of the Coupon Details include the Name of the Restaurant, Add to newCoupons Array
+                        if (couponName.toLowerCase().match(placeName.toLowerCase())) {
+                            newCoupons.push(couponArray[j].deal.short_title);
+                            $(this).data("coupon", couponArray[j].deal.short_title);
+                        }
+                    }
+                })
 
-      });
-      //Closes AJAX Done Function
+        });
+        //Closes AJAX Done Function
     });
     $("#restaurantDiv").show();
     $("#dislikeButton").show();
@@ -178,3 +176,6 @@ $("#submitButton").on("click", function(e) {
     $("#searchbar").css("margin", "10px 0 25px 0");
     //Closes Search Button Function
 });
+
+
+ 
