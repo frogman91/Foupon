@@ -15,12 +15,8 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // Initial Values
-
 var email = "";
-
-
 var userObject = {};
-
 
 // Capture Button Click
 $("#add-user").on("click", function(event) {
@@ -33,25 +29,14 @@ $("#add-user").on("click", function(event) {
 // Firebase watcher + initial loader
 database.ref("/userLikes").on("child_added", function(snapshot) {
 
-    // Logging everything that's coming out of snapshot
-    console.log(snapshot.val());
-
-    console.log(snapshot.val().userEmail);
-    console.log(snapshot.val().liked);
-
-
-
     // Changing the HTML to reflect
 
     $("#email-display").html(snapshot.val().email);
-
-
 
     // Handle errors
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
-
 
 var btnLogout = document.getElementById("btnLogout");
 var signedIn;
@@ -60,14 +45,18 @@ var signedIn;
 $("#add-user").on("click", function(e) {
     e.preventDefault();
     var email = $("#inputEmail").val().trim();
-    var pass = $("#inputPassword").val().trim();
-    var auth = firebase.auth();
-    //  sign in
-    var promise = auth.createUserWithEmailAndPassword(email, pass).then(function() {
-        window.location.href = 'main.html';
-    });
-    promise.catch(e => console.log(e.message));
+    var password = $("#inputPassword").val().trim();
 
+    //  sign in
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+        window.location.href = 'main.html';
+    }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+    });
 });
 
 // when user signs up
@@ -86,22 +75,20 @@ $("#login-user").on("click", function(e) {
         // ...
     });
 
-
 });
 
 $("#logout").on("click", function(e) {
     e.preventDefault();
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
-        alert("user was logged out");
-        signedIn = false;
+
+
     }).catch(function(error) {
         // An error happened.
         console.log(error);
     });
     window.location.href = 'index.html';
 })
-
 
 //check to see if the user is signed in
 firebase.auth().onAuthStateChanged(function(user) {
@@ -110,9 +97,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         userObject.email = user.email;
         userObject.uid = user.uid;
 
-        signedIn = true;
-        alert("user was logged in");
-        $("#logout").html("<a id='login' href='index.html'>Logout</a>")
+        $("#logout").html("<a id='logout' href='index.html'>Logout</a>")
         $("#spacer").removeClass("col-md-3 col-sm-3 col-xs-3");
         $("#spacer").addClass("col-md-4 col-sm-3 col-xs-1");
         $("#main-content").removeClass("col-md-6 col-sm-6 col-xs-6");
@@ -122,7 +107,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     } else {
         // No user is signed in.
-        $("#logout").html("<a id='logout' href='index.html'>Login</a>")
+        $("#logout").html("<a id='login' href='index.html'>Login</a>");
+        $("#tableThing").append("<h1 class='text-center' style='margin-bottom: 20px'> Your search results will appear here, go log in and get some searches!! </h1>");
 
     }
 });
@@ -134,11 +120,7 @@ database.ref("/userLikes").on("child_added", function(snapshot) {
     if (snapshot.val().userEmail === userObject.email) {
         // show the user likes
 
-        $("#restResult").prepend("<tr><td>" + snapshot.val().liked + "</td><td><br>" + snapshot.val().address + "</td><td><br>" + snapshot.val().rating + "</td><td>")
-        $("#groupResult").prepend("<tr><td>" + snapshot.val().coupon + " " + "</td><td>");
-        console.log('our user likes', snapshot.val().liked);
-        console.log('our user likes', snapshot.val().address);
-        console.log('our user likes', snapshot.val().rating);
+        $("#restResult").prepend("<tr><td>" + snapshot.val().liked + "</td><td>" + snapshot.val().address + "</td><td>" + snapshot.val().rating + "</td><td>" + snapshot.val().coupon + "</td></tr>");
     }
 })
 
@@ -150,8 +132,7 @@ $("#likeButton").on("click", function(e) {
         userId: userObject.uid,
         liked: $("#likeButton").data("name"),
         address: $("#likeButton").data("address"),
-        rating: $("#likeButton").data("rating"),
-        coupon: $("#likeButton").data("coupon")
+        rating: $("#likeButton").data("rating")
 
     });
 })
