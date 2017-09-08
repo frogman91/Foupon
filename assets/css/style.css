@@ -17,6 +17,14 @@ body {
     height: 100%;
 }
 
+#welcome {
+    text-align: center;
+}
+
+#logo{
+    width:100%;
+}
+
 #searchbar {
     margin: 150px 0;
     width: 100%;
@@ -40,6 +48,9 @@ body {
     padding: 10px;
     text-align: center;
     vertical-align: middle;
+}
+.row {
+    margin:0;
 }
 
 #restResult {
@@ -74,10 +85,28 @@ body {
 .decision {
     background-color: darkgreen;
     border:none;
+    height:100px;
+    width:100px;
+    margin:0 auto;
+}
+
+#likeDisBut {
+    vertical-align:middle;
+}
+
+.decision:focus  {
+    background-color:darkgreen;
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
 }
 
 .decision:hover, .decision:hover i  {
     background-color: #68c62a;
+}
+
+.glyphicon.glyphicon-heart, .glyphicon.glyphicon-remove {
+    font-size: 50px;
 }
 
 .btn span {
@@ -111,8 +140,7 @@ body {
     background-color: #68c62a;
     color: #fff;
     border-bottom: 1px solid #ccc;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+    border-radius: 6px;
     padding: 5px 0;
 }
 
@@ -130,6 +158,10 @@ body {
 .sign-in {
     background-color: #68c62a;
     border: none;
+}
+
+.sign-in:hover {
+    background-color: darkgreen;
 }
 
 .form-signin {
@@ -168,6 +200,50 @@ body {
 }
 
 .form-signin input[type=“password”] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signUp-heading {
+    font-size: 19px;
+}
+
+.form-signUp {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signUp .form-signUp-heading,
+.form-signUp .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signUp .checkbox {
+    font-weight: normal;
+}
+
+.form-signUp .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.form-signUp .form-control:focus {
+    z-index: 2;
+}
+
+.form-signUp input[type=“email”] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signUp input[type=“password”] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

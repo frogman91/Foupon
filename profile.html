@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foupon</title>
-    <!-- jQuery -->
+     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- style link -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
 </head>
@@ -31,28 +33,30 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Home</a></li>
                         <li><a href="profile.html">Profile</a></li>
                         <li><a href="main.html">Search</a></li>
+                        <li><a id="logout" href="index.html">Logout</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="container" id="profile-result">
+        <div id="profile-result">
             <div class="row">
-            
-                <div id="restResult" class="col-lg-6 col-md-6">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                <div id="restResult" class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
                     <p>Restarant searches go here!</p>
                 </div>
                 
-                <div id="groupResult" class="col-lg-6 col-md-6">
+                <div id="groupResult" class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
                     <p>Groupon searches go here!</p>
                 </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                
             </div>
         </div>
     </div>
+    <script src="assets/javascript/firebase.js"></script>
     <script src="assets/javascript/app.js"></script>
 </body>
