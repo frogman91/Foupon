@@ -4,9 +4,6 @@ var newAddress;
 var newRating;
 var newCoupons = [];
 
-
-
-
 //initialize function
 function init() {
     $("#restaurantDiv").hide();
@@ -79,6 +76,7 @@ $("#submitButton").on("click", function(e) {
         }
     }).done(function(response) {
         e.preventDefault();
+
         var res = JSON.stringify(response);
         console.log('AJAX RESPONSE = ', response)
         var responseArray = response.data.results;
@@ -138,7 +136,9 @@ $("#submitButton").on("click", function(e) {
                 $("#likeButton").data("rating", responseArray[i].rating);
             }
 
+
         });
+
 
 
         // On Button Like Click, Query For Coupons With Same Parameters as Original Search
@@ -176,3 +176,6 @@ $("#submitButton").on("click", function(e) {
     $("#searchbar").css("margin", "10px 0 25px 0");
     //Closes Search Button Function
 });
+
+
+ 
