@@ -70,7 +70,7 @@
     promise.catch(e => console.log(e.message));
   });
 
-    // when user signs up
+    // when user logs in
   $("#login-user").on("click", function(e){
     e.preventDefault();
     var email = $("#loginEmail").val().trim();
